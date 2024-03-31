@@ -1,2 +1,2 @@
 # EJERCICIOS
-(Los programas completos son los que hay que fijarse)
+Faltan los 3 primeros del segundo pdf
