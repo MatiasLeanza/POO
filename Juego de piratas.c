@@ -16,11 +16,10 @@ int main(int argc, char * argv[]){
     int Tablero [n][n];
 
     
-    if(n < 4 || n == 2) {
-        printf("Error, ponga un numero valido");
+    if(n < 4) {
+        puts("Error, ponga un numero valido");
+        return 0;
     }
-    
-    else{
     
     printf("0: Agua\n 1: Tierra\n 2: Puentes\n 3: Pirata\n \n");
 
@@ -114,6 +113,5 @@ while (intentos <= 50) {
        return 0;
    }
 }
-    }
    return 0;
 }
