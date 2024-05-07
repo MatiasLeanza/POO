@@ -88,6 +88,7 @@ while (intentos <= 50) {
         } else {
             puts("Opcion invalida");
             printf("\n");
+            return 0;
         }
         a=pirata1;
         b=pirata2;
