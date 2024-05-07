@@ -4,72 +4,97 @@
 
 int main(int argc, char * argv[]){
     srand(time(NULL));
+    int n;
+     printf("Elija el tamaño (minimo 4x4) del tablero: ");
+      scanf("%d", &n);
     int pirata = 3;
-    int pirata1 = (rand()% 6) + 1;
-    int pirata2 = (rand()% 6) + 1;
-    int tesoro1 = (rand()% 6) + 1;
-    int tesoro2 = (rand()% 6) + 1;
+    int pirata1 = (rand()% (n-2)) + 1;
+    int pirata2 = (rand()% (n-2)) + 1;
+    int tesoro1 = (rand()% (n-2)) + 1;
+    int tesoro2 = (rand()% (n-2)) + 1;
     int intentos = 1;
-   int Tablero [8][8];
+    int Tablero [n][n];
 
+    
+    if(n < 4 || n == 2) {
+        printf("Error, ponga un numero valido");
+    }
+    
+    else{
+    
     printf("0: Agua\n 1: Tierra\n 2: Puentes\n 3: Pirata\n \n");
 
 
-   for (int i = 0; i < 8; i++){
-        for(int j=0;j < 8; j++){
+   for (int i = 0; i < n; i++){
+        for(int j=0;j < n; j++){
             Tablero[i][j]=1;
         }
    }
 
-    for (int i = 0; i <8 ; i++){
-        for (int j = 0; j <8 ; j+=7){
+    for (int i = 0; i < n ; i++){
+        for (int j = 0; j <n ; j += (n-1)){
             Tablero[i][j]=0;
         }
     }  
-        for (int i = 0; i <8 ; i+=7){
-        for (int j = 0; j <8 ; j++){
+        for (int i = 0; i < n ; i += (n-1)){
+        for (int j = 0; j < n ; j++){
             Tablero[i][j]=0;
         }
     }
-    Tablero[0][7]=2;
-    Tablero[7][0]=2;
+    Tablero[0][n-1]=2;
+    Tablero[n-1][0]=2;
     Tablero[pirata1][pirata2]= pirata;
-    /*Tablero[tesoro1][tesoro2] = 4;*/
-    while (Tablero[pirata1][pirata2] == Tablero[tesoro1][tesoro2]) {
-        pirata1 = (rand()% 6) + 1;
-        pirata2 = (rand()% 6) + 1;
+    while (Tablero[pirata1][pirata2] == Tablero[tesoro1][tesoro2]){
+        pirata1 = (rand()% (n-2)) + 1;
+        pirata2 = (rand()% (n-2)) + 1;
     }
+    int a = pirata1;
+    int b = pirata2;
     
-        for (int i = 0; i < 8; i++){
-        for(int j=0;j < 8; j++){
+        for (int i = 0; i < n; i++){
+        for(int j=0;j < n; j++){
             printf("%d ", Tablero[i][j]);
         }
         printf("\n");
    }
 
 while (intentos <= 50) {
-   Tablero[pirata1][pirata2] = 1;
-    printf("intento Nº%d\n", intentos);
+   
+    printf("\nintento Nº%d\n", intentos);
+    printf("\n");
     intentos++;
-    Tablero[pirata1][pirata2] = pirata;
     int opcionDireccion;
-    printf("Elija una opcion\n 1)Norte\n 2)Sur\n 3)Este\n 4)Oeste: ");
+    printf("Elija una opcion\n 1)Norte\n 2)Sur\n 3)Este\n 4)Oeste:\n");
      scanf("%d", &opcionDireccion);
         if (opcionDireccion == 1) {
-            
             Tablero[pirata1 -1][pirata2] = pirata;
+            Tablero[a][b] = 1;
+            pirata1=a -1;
+            pirata2=b;
         } else if (opcionDireccion == 2) {
           Tablero[pirata1 + 1][pirata2] = pirata;
-        } else if (opcionDireccion == 3) {
+          Tablero[a][b] = 1;
+          pirata1=a + 1;
+          pirata2=b;
+        } else if (opcionDireccion == 3) {            
           Tablero[pirata1][pirata2 + 1] = pirata;
+          Tablero[a][b] = 1;
+          pirata1=a;
+            pirata2=b + 1;
         } else if (opcionDireccion == 4) {
           Tablero[pirata1][pirata2 - 1] = pirata;
+          Tablero[a][b] = 1;
+          pirata1=a;
+            pirata2=b - 1;
         } else {
             puts("Opcion invalida");
+            printf("\n");
         }
+        a=pirata1;
+        b=pirata2;
     
-    for (int i = 0; i < 8; i++){
-        for(int j=0;j < 8; j++){
+    for (int i = 0; i < n; i++){
+        for(int j=0;j < n; j++){
             printf("%d ", Tablero[i][j]);
         }
         printf("\n");
@@ -80,7 +105,7 @@ while (intentos <= 50) {
        printf("El tesoro se encontraba en la fila %d y la columna %d\n", tesoro1, tesoro2);
        return 0;
    }
-   if(Tablero[pirata1][pirata2] == Tablero[0][pirata2] || Tablero[pirata1][pirata2] == Tablero[7][pirata2] || Tablero[pirata1][pirata2] == Tablero[pirata1][0] || Tablero[pirata1][pirata2] == Tablero[pirata1][7]){
+   if(Tablero[pirata1][pirata2] == Tablero[0][pirata2] || Tablero[pirata1][pirata2] == Tablero[n-1][pirata2] || Tablero[pirata1][pirata2] == Tablero[pirata1][0] || Tablero[pirata1][pirata2] == Tablero[pirata1][n-1]){
        puts("Perdiste por pisar el agua");
        return 0;
    }
@@ -89,5 +114,6 @@ while (intentos <= 50) {
        return 0;
    }
 }
+    }
    return 0;
 }
